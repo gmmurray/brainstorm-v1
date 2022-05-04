@@ -7,11 +7,14 @@
   "author": "gmmurray",
   "license": "MIT",
   "scripts": {
-    "clean": "npx rimraf ./build/",
-    "watch": "npm-run-all --parallel watch:client watch:server",
+    "dev": "npm-run-all --parallel watch:client watch:server",
     "watch:client": "webpack --watch",
     "watch:server": "nodemon",
+    "clean": "npx rimraf ./build/",
+    "prebuild": "yarn clean",
     "build": "webpack && tsc",
+    "postbuild": "ts-node ./copyViews.ts",
+    "start": "node ./build/app.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -21,8 +24,10 @@
     }
   },
   "devDependencies": {
+    "@types/alpinejs": "^3.7.0",
     "@types/connect-livereload": "^0.6.0",
     "@types/express": "^4.17.13",
+    "@types/fs-extra": "^9.0.13",
     "@types/hbs": "^4.0.1",
     "@types/jest": "^27.4.1",
     "@types/livereload": "^0.9.2",
@@ -41,12 +46,16 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
+    "alpinejs": "^3.10.2",
     "connect-livereload": "^0.6.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
+    "express-openid-connect": "^2.7.2",
+    "fs-extra": "^10.1.0",
     "hbs": "^4.2.0",
     "livereload": "^0.9.3",
+    "mongoose": "^6.3.2",
     "path": "^0.12.7",
     "ts-loader": "^9.3.0",
     "webpack": "^5.72.0",

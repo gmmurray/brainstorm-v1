@@ -1,9 +1,9 @@
 {{#>layout title="home"}}
 
-<div x-cloak x-data="page_data">
+<div x-cloak x-data="$store.home">
   <h1>home</h1>
   <div>
-    <h2 x-text="`hello ${user.name} (${user.id})`"></h2>
+    <h2 x-text="`hello ${user.name} (${user.sub})`"></h2>
   </div>
   <div>
     <h3>ideas</h3>
@@ -33,17 +33,14 @@
       </template>
     </div>
   </div>
+  <button @click="test()">click</button>
 </div>
 {{/layout}}
 <script>
-  const { user, ideas, templates } = JSON.parse('{{{page_data}}}');
-  console.log(templates.map(t => t.fields));
-  const setData = () => {
-    Alpine.data('page_data', () => ({
-      user,
-      ideas,
-      templates,
-    }));
-  };
-  document.addEventListener('alpine:init', setData);
+  const page_data = JSON.parse('{{{page_data}}}');
+
+  document.addEventListener('alpine:init', () => {
+    const store = window.initStore(page_data, 'home');
+    Alpine.store('home', store);
+  });
 </script>
