@@ -1,0 +1,49 @@
+{{#>layout title="home"}}
+
+<div x-cloak x-data="page_data">
+  <h1>home</h1>
+  <div>
+    <h2 x-text="`hello ${user.name} (${user.id})`"></h2>
+  </div>
+  <div>
+    <h3>ideas</h3>
+    <div>
+      <div x-show="ideas.length === 0">no ideas yet</div>
+      <template x-for="idea in ideas">
+        <p x-text="`${idea.name} (${idea.template} template)`"></p>
+      </template>
+    </div>
+  </div>
+  <div>
+    <h3>templates</h3>
+    <div>
+      <div x-show="templates.length === 0">no templates yet</div>
+      <template x-for="(template, i) in templates" :key="template.id">
+        <ul>
+          <li x-text="`name: ${template.name}`"></li>
+          <li>
+            fields
+            <ul>
+              <template x-for="(field, j) in template.fields">
+                <li x-text="field"></li>
+              </template>
+            </ul>
+          </li>
+        </ul>
+      </template>
+    </div>
+  </div>
+</div>
+{{/layout}}
+<script>
+  const { user, ideas, templates } = JSON.parse('{{{page_data}}}');
+  console.log(templates.map(t => t.fields));
+  const setData = () => {
+    Alpine.data('page_data', () => ({
+      user,
+      ideas,
+      templates,
+    }));
+  };
+  document.addEventListener('alpine:init', setData);
+</script>

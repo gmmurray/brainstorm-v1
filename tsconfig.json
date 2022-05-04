@@ -100,5 +100,5 @@
   },
   "lib": ["es2016"],
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "src/views/public"]
 }
