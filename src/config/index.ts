@@ -8,4 +8,5 @@ export default {
   authSecret: process.env.AUTH0_SECRET,
   authClientId: process.env.AUTH0_CLIENT_ID,
   authBaseUrl: process.env.AUTH0_BASE_URL,
+  mongodbConnectionString: process.env.MONGODB_CONNECTION_STRING,
 };

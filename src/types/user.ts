@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 export interface IAuthUser {
   name: string;
   picture: string;
@@ -17,4 +19,7 @@ export class AuthUser implements IAuthUser {
     this.email = user.email;
     this.sub = user.sub;
   }
+
+  public static getUserFromRequest = (request: Request) =>
+    new AuthUser(request.oidc.user as IAuthUser);
 }

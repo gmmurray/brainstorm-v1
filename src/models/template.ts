@@ -1,7 +1,7 @@
-import { Schema, model } from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
 
 export interface ITemplate {
-  ownerId: string;
+  userId: string;
   name: string;
   fields: ITemplateField[];
 }
@@ -17,9 +17,10 @@ const templateFieldSchema = new Schema<ITemplateField>({
 });
 
 const templateSchema = new Schema<ITemplate>({
-  ownerId: { type: String, required: true },
+  userId: { type: String, required: true },
   name: { type: String, required: true },
   fields: { type: [templateFieldSchema], required: true },
 });
 
 export const TemplateModel = model<ITemplate>('Template', templateSchema);
+export interface ITemplateDocument extends Document, ITemplate {}
