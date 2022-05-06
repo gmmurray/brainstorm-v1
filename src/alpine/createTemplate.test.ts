@@ -9,6 +9,7 @@ import {
 
 import { TemplateFieldTypes } from '../types/templateFields';
 import axios from 'axios';
+import { mockTemplate1 } from '../mock/templates';
 import { mockUser } from '../mock/users';
 
 jest.mock('axios');
@@ -35,6 +36,10 @@ describe('create template page scripts', () => {
   });
   test('handle create method success', async () => {
     const pageStore = initCreateTemplatePage({ user: mockUser });
+
+    pageStore.name = mockTemplate1.name;
+    pageStore.fields = mockTemplate1.fields;
+
     expect(pageStore.handleCreate).toBeTruthy();
 
     const templateId = '123';
@@ -46,8 +51,8 @@ describe('create template page scripts', () => {
     await pageStore.handleCreate?.();
     expect(pageStore.loading).toBe(false);
     expect(mockedAxios.post).toBeCalledWith('/templates/create', {
-      name: '',
-      fields: [],
+      name: mockTemplate1.name,
+      fields: mockTemplate1.fields,
       userId: mockUser.sub,
     });
     expect(window.location.replace).toBeCalledWith(
@@ -58,6 +63,9 @@ describe('create template page scripts', () => {
     const message = 'error';
 
     const pageStore = initCreateTemplatePage({ user: mockUser });
+
+    pageStore.name = mockTemplate1.name;
+    pageStore.fields = mockTemplate1.fields;
     expect(pageStore.handleCreate).toBeTruthy();
 
     mockedAxios.post.mockResolvedValueOnce({ data: { message } });
@@ -65,8 +73,8 @@ describe('create template page scripts', () => {
     await pageStore.handleCreate?.();
     expect(pageStore.loading).toBe(false);
     expect(mockedAxios.post).toBeCalledWith('/templates/create', {
-      name: '',
-      fields: [],
+      name: mockTemplate1.name,
+      fields: mockTemplate1.fields,
       userId: mockUser.sub,
     });
     expect(pageStore.message).toBe(message);
@@ -74,6 +82,25 @@ describe('create template page scripts', () => {
     mockedAxios.post.mockResolvedValueOnce(undefined);
     await pageStore.handleCreate?.();
     expect(pageStore.message).toBe('Error creating template');
+  });
+  test('handle invalid form submission', async () => {
+    const pageStore = initCreateTemplatePage({ user: mockUser });
+    expect(pageStore.handleCreate).toBeTruthy();
+    pageStore.name = '';
+
+    await pageStore.handleCreate?.();
+    expect(mockedAxios.post).not.toBeCalled();
+    expect(pageStore.message).toBe(
+      createTemplatePageStoreDefault.validationMessage,
+    );
+
+    pageStore.name = undefined;
+
+    await pageStore.handleCreate?.();
+    expect(mockedAxios.post).not.toBeCalled();
+    expect(pageStore.message).toBe(
+      createTemplatePageStoreDefault.validationMessage,
+    );
   });
   test('handle field add success', () => {
     const pageStore = initCreateTemplatePage({ user: mockUser });

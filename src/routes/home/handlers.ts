@@ -13,5 +13,6 @@ export const home = async (req: Request, res: Response) => {
         { id: 1, name: 'app', fields: ['name', 'priority', 'notes'] },
       ],
     }),
+    isAuthenticated: req.oidc.isAuthenticated(),
   });
 };

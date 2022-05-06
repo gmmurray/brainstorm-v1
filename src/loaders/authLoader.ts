@@ -11,7 +11,7 @@ const config: ConfigParams = {
   clientID: appConfig.authClientId,
   issuerBaseURL: appConfig.authBaseUrl,
   routes: {
-    postLogoutRedirect: '/landing',
+    postLogoutRedirect: '/',
   },
 };
 

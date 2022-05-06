@@ -18,13 +18,27 @@ export class TemplateHandlers {
     const user = AuthUser.getUserFromRequest(req);
     const templates = await this._templateService.findByUserId(user.sub);
 
-    return pageWithData(res, pageNames.viewTemplates, user, { templates });
+    return pageWithData(
+      req,
+      res,
+      pageNames.viewTemplates,
+      user,
+      { templates },
+      '/templates',
+    );
   };
 
   createView = async (req: Request, res: Response) => {
     const user = AuthUser.getUserFromRequest(req);
 
-    return pageWithData(res, pageNames.createTemplate, user);
+    return pageWithData(
+      req,
+      res,
+      pageNames.createTemplate,
+      user,
+      undefined,
+      '/templates',
+    );
   };
 
   createOperation = async (req: Request, res: Response) => {
@@ -44,7 +58,14 @@ export class TemplateHandlers {
       templateId as string,
     );
 
-    return pageWithData(res, pageNames.updateTemplate, user, { template });
+    return pageWithData(
+      req,
+      res,
+      pageNames.updateTemplate,
+      user,
+      { template },
+      '/templates',
+    );
   };
 
   updateOperation = async (req: Request, res: Response) => {

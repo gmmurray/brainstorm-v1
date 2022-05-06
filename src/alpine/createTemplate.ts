@@ -14,12 +14,14 @@ export const createTemplatePageStoreDefault = {
     type: TemplateFieldTypes.STRING,
   },
   fieldTypeOptions: Object.values(TemplateFieldTypes),
+  validationMessage: 'validation error',
 };
 
 export const initCreateTemplatePage = (
   pageData?: AuthenticatedPageData,
 ): Result => {
   if (!pageData || !pageData.user) return {};
+
   return {
     user: pageData.user,
     name: createTemplatePageStoreDefault.name,
@@ -29,6 +31,11 @@ export const initCreateTemplatePage = (
     newField: { ...createTemplatePageStoreDefault.newField },
     fieldTypeOptions: [...createTemplatePageStoreDefault.fieldTypeOptions],
     async handleCreate() {
+      console.log(this.name);
+      if (!isFormValid(this.name)) {
+        this.message = createTemplatePageStoreDefault.validationMessage;
+        return;
+      }
       this.loading = true;
       const result = await axios.post('/templates/create', {
         name: this.name,
@@ -72,3 +79,5 @@ interface Result {
   handleAddField?: () => void;
   handleRemoveField?: (index: number) => void;
 }
+
+const isFormValid = (name?: string) => name && name !== '';
