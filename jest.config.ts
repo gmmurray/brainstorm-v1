@@ -7,8 +7,7 @@ module.exports = {
     'src/alpine/*',
     // 'src/loaders/*',
     // 'src/models/*',
-    // 'src/routes/*',
-    // 'src/services/*',
+    'src/services/*',
     // 'src/app.ts',
   ],
 };
