@@ -6,13 +6,12 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        include: path.resolve(__dirname, 'src/alpine/'),
         loader: 'ts-loader',
       },
     ],
   },
   resolve: {
-    extensions: ['.ts'],
+    extensions: ['.ts', '.js'],
   },
   output: {
     filename: 'bundle.js',

@@ -1,21 +1,39 @@
+import { HomePageData, initHomePage } from './home';
+import {
+  UpdateTemplatePageData,
+  initUpdateTemplatePage,
+} from './updateTemplate';
+import { ViewTemplatesPageData, initViewTemplatesPage } from './viewTemplates';
+
 import Alpine from 'alpinejs';
-import { initHomePage } from './home';
+import { AuthenticatedPageData } from '../types/pageData';
+import { initCreateTemplatePage } from './createTemplate';
+import { pageNames } from '../constants/pageNames';
 
 declare global {
   interface Window {
     Alpine?: typeof Alpine;
-    initStore: (data: any, name: string) => object;
+    initStore: (data: Record<string, any>, name: string) => object;
   }
 }
 
-const initStore = (data: any, name: string) => {
+export const initStore = (data: Record<string, any>, name: string) => {
   switch (name) {
-    case 'home':
-      return initHomePage(data);
+    case pageNames.home:
+      return initHomePage(data as HomePageData);
+    case pageNames.viewTemplates:
+      return initViewTemplatesPage(data as ViewTemplatesPageData);
+    case pageNames.createTemplate:
+      return initCreateTemplatePage(data as AuthenticatedPageData);
+    case pageNames.updateTemplate:
+      return initUpdateTemplatePage(data as UpdateTemplatePageData);
     default:
       return {};
   }
 };
+export const initClientApp = () => {
+  window.initStore = initStore;
+  window.Alpine = Alpine;
+};
 
-window.initStore = initStore;
-window.Alpine = Alpine;
+initClientApp();

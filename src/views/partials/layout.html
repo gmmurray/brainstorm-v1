@@ -8,8 +8,24 @@
     ></script>
   </head>
   <body>
+    <nav>
+      <h1>brainstorm v1</h1>
+      <a href="/logout">logout</a>
+    </nav>
+    <hr />
     {{> @partial-block}}
     <script src="/assets/js/bundle.js"></script>
+    <script>
+      const dataToParse = '{{{page_data}}}';
+      const storeName = '{{store}}';
+      if (dataToParse && storeName) {
+        const page_data = JSON.parse(dataToParse);
+        document.addEventListener('alpine:init', () => {
+          const store = window.initStore(page_data, '{{store}}');
+          Alpine.store('{{store}}', store);
+        });
+      }
+    </script>
   </body>
   <footer></footer>
 </html>

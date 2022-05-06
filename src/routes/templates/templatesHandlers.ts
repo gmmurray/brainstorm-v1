@@ -1,8 +1,11 @@
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { Request, Response } from 'express';
 
 import { AuthUser } from '../../types/user';
-import { ITemplateService } from 'types/services/ITemplateService';
-import { TemplateService } from '../../services/templateService';
+import { ITemplateService } from '../../types/services/ITemplateService';
+import { Template } from '../../models/template';
+import { pageNames } from '../../constants/pageNames';
+import { pageWithData } from '../shared/pageWithData';
 
 export class TemplateHandlers {
   private _templateService: ITemplateService;
@@ -11,34 +14,55 @@ export class TemplateHandlers {
     this._templateService = templateService;
   }
 
-  findByUserId = async (req: Request, res: Response) => {
+  templatesView = async (req: Request, res: Response) => {
     const user = AuthUser.getUserFromRequest(req);
+    const templates = await this._templateService.findByUserId(user.sub);
 
-    return res
-      .status(200)
-      .json(await this._templateService.findByUserId(user.sub));
+    return pageWithData(res, pageNames.viewTemplates, user, { templates });
   };
 
-  getCreatePage = async (req: Request, res: Response) => {
+  createView = async (req: Request, res: Response) => {
     const user = AuthUser.getUserFromRequest(req);
 
-    return res.render('createTemplate', {
-      ['page_data']: JSON.stringify({
-        user,
-      }),
-    });
+    return pageWithData(res, pageNames.createTemplate, user);
   };
 
-  create = async (req: Request, res: Response) => {
+  createOperation = async (req: Request, res: Response) => {
     const user = AuthUser.getUserFromRequest(req);
 
-    const template = await this._templateService.create(
+    const template = await this._templateService.create(user.sub, req.body);
+
+    return res.status(StatusCodes.CREATED).json({ templateId: template.id });
+  };
+
+  updateView = async (req: Request, res: Response) => {
+    const user = AuthUser.getUserFromRequest(req);
+
+    const { templateId } = req.query;
+    const template = await this._templateService.findById(
       user.sub,
-      req.body.template,
+      templateId as string,
     );
 
-    return res.render('updateTemplate', {
-      ['page_data']: JSON.stringify({ template }),
-    });
+    return pageWithData(res, pageNames.updateTemplate, user, { template });
+  };
+
+  updateOperation = async (req: Request, res: Response) => {
+    const user = AuthUser.getUserFromRequest(req);
+
+    const updates = req.body as Template;
+    await this._templateService.update(user.sub, updates);
+
+    return res.status(StatusCodes.OK).send(ReasonPhrases.OK);
+  };
+
+  deleteOperation = async (req: Request, res: Response) => {
+    const user = AuthUser.getUserFromRequest(req);
+
+    const { templateId } = req.query;
+
+    await this._templateService.delete(user.sub, templateId as string);
+
+    return res.status(StatusCodes.NO_CONTENT).send(ReasonPhrases.NO_CONTENT);
   };
 }

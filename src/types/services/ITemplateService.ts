@@ -1,13 +1,9 @@
-import { ITemplate, ITemplateDocument } from 'models/template';
-
-import { Types } from 'mongoose';
+import { Template } from '../../models/template';
 
 export interface ITemplateService {
-  findByUserId: (userId: string) => Promise<ITemplateDocument[]>;
-  create: (
-    userId: string,
-    template: Partial<ITemplate>,
-  ) => Promise<ITemplateDocument>;
-  update: (id: string, template: ITemplate) => Promise<void>;
-  delete: (id: string) => Promise<void>;
+  findById: (userId: string, templateId: string) => Promise<Template | null>;
+  findByUserId: (userId: string) => Promise<Template[]>;
+  create: (userId: string, template: Partial<Template>) => Promise<Template>;
+  update: (userId: string, template: Template) => Promise<void>;
+  delete: (userId: string, templateId: string) => Promise<void>;
 }

@@ -1,16 +1,15 @@
 import { AuthenticatedPageData } from '../types/pageData';
 import { Template } from '../models/template';
 
-export const initHomePage = (pageData?: HomePageData) => {
+export const initViewTemplatesPage = (pageData?: ViewTemplatesPageData) => {
   if (!pageData) return {};
+
   return {
     user: pageData.user,
-    ideas: pageData.ideas,
     templates: pageData.templates,
   };
 };
 
-export interface HomePageData extends AuthenticatedPageData {
-  ideas: { name: string; template: string }[];
+export interface ViewTemplatesPageData extends AuthenticatedPageData {
   templates: Template[];
 }

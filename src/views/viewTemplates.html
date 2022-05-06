@@ -1,0 +1,24 @@
+{{#>layout title="view templates" store="viewTemplates"}}
+<div x-cloak x-data="$store.viewTemplates">
+  <h1>templates</h1>
+  <a href="/templates/create">create</a>
+  <h3 x-text="user.name"></h3>
+  <div x-show="templates.length === 0"></div>
+  <template x-for="template in templates">
+    <div>
+      <a :href="`/templates/view?templateId=${template.id}`"
+        ><h5 x-text="template.name"></h5
+      ></a>
+      <p x-show="template.fields.length === 0">no fields yet</p>
+      <ul>
+        <template x-for="(field, i) in template.fields">
+          <li>
+            name: <span x-text="field.name"></span> type:
+            <span x-text="field.type"></span>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </template>
+</div>
+{{/layout}}

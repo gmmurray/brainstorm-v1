@@ -1,4 +1,4 @@
-{{#>layout title="home"}}
+{{#>layout title="home" store="home"}}
 
 <div x-cloak x-data="$store.home">
   <h1>home</h1>
@@ -16,6 +16,7 @@
   </div>
   <div>
     <h3>templates</h3>
+    <a href="/templates">view</a>
     <div>
       <div x-show="templates.length === 0">no templates yet</div>
       <template x-for="(template, i) in templates" :key="template.id">
@@ -33,14 +34,5 @@
       </template>
     </div>
   </div>
-  <button @click="test()">click</button>
 </div>
 {{/layout}}
-<script>
-  const page_data = JSON.parse('{{{page_data}}}');
-
-  document.addEventListener('alpine:init', () => {
-    const store = window.initStore(page_data, 'home');
-    Alpine.store('home', store);
-  });
-</script>

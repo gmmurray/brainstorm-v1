@@ -1,5 +1,6 @@
-import { AuthUser, IAuthUser } from '../../types/user';
 import { Request, Response } from 'express';
+
+import { AuthUser } from '../../types/user';
 
 export const home = async (req: Request, res: Response) => {
   const user = AuthUser.getUserFromRequest(req);
