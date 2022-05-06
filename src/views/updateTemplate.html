@@ -1,10 +1,89 @@
 {{#>layout title="update template" store="updateTemplate"}}
 <div x-cloak x-data="$store.updateTemplate">
-  <a href="/templates">back to templates</a>
-  <h1>view template</h1>
-  <div>
-    <form @submit.prevent="handleUpdate">
-      <div>
+  <h1 class="display-1">view template</h1>
+  <a class="btn btn-outline-primary" href="/templates">back to templates</a>
+  <form @submit.prevent="handleUpdate" novalidate class="needs-validation mt-3">
+    <div class="row">
+      <div class="col-12" x-show="message && message !== ''">
+        <p x-text="message" class="text-danger fw-bold"></p>
+      </div>
+      <div class="col-lg-6 my-1">
+        <input
+          type="text"
+          x-model="template.name"
+          placeholder="name"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">name is required</div>
+      </div>
+      <div class="col-lg-6 my-1">
+        <div class="input-group my-1">
+          <input
+            type="text"
+            x-model="newField.name"
+            placeholder="add a field"
+            class="form-control w-50"
+          />
+          <select class="form-select" x-model="newField.type">
+            <template x-for="option in fieldTypeOptions">
+              <option x-text="option" :value="option"></option>
+            </template>
+          </select>
+          <button
+            type="text"
+            @click.prevent="handleAddField"
+            class="btn btn-outline-primary"
+          >
+            add
+          </button>
+        </div>
+      </div>
+      <div class="col-12 my-1">
+        <button type="submit" :disabled="loading" class="btn btn-primary">
+          <span
+            x-show="loading"
+            class="spinner-border spinner-border-sm"
+          ></span>
+          <span x-text="loading ? 'saving...' : 'save'"></span>
+        </button>
+        <button
+          type="button"
+          @click.prevent="handleDelete"
+          :disabled="loading"
+          class="btn btn-danger ms-2"
+        >
+          <span
+            x-show="loading"
+            class="spinner-border spinner-border-sm"
+          ></span>
+          <span x-text="loading ? 'deleting...' : 'delete'"></span>
+        </button>
+      </div>
+      <div class="col-12 my-1">
+        <ul class="list-group list-group-numbered">
+          <template x-for="(field, f) in template.fields">
+            <li
+              class="list-group-item d-flex justify-content-between align-items-start"
+            >
+              <div class="ms-2 me-auto">
+                <div class="fw-bold" x-text="field.name"></div>
+                <span x-text="field.type"></span>
+              </div>
+              <button
+                type="button"
+                class="btn btn-danger"
+                @click.prevent="() => handleRemoveField(f)"
+              >
+                <i class="bi bi-x"></i>
+              </button>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </div>
+
+    <!-- <div>
         <input type="text" x-model="template.name" placeholder="name" />
       </div>
       <div>
@@ -30,6 +109,31 @@
   </div>
   <div>
     <button @click.prevent="handleDelete" :disabled="loading">delete</button>
-  </div>
+  </div> -->
+    {{/layout}}
+    <script>
+      (function () {
+        'use strict';
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach(function (form) {
+          form.addEventListener(
+            'submit',
+            function (event) {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+
+              form.classList.add('was-validated');
+            },
+            false,
+          );
+        });
+      })();
+    </script>
+  </form>
 </div>
-{{/layout}}

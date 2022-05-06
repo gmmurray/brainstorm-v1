@@ -13,6 +13,7 @@ export const updateTemplatePageStoreDefault = {
     type: TemplateFieldTypes.STRING,
   },
   fieldTypeOptions: Object.values(TemplateFieldTypes),
+  validationMessage: 'validation error',
 };
 
 export const initUpdateTemplatePage = (pageData?: UpdateTemplatePageData) => {
@@ -26,6 +27,10 @@ export const initUpdateTemplatePage = (pageData?: UpdateTemplatePageData) => {
     newField: { ...updateTemplatePageStoreDefault.newField },
     fieldTypeOptions: [...updateTemplatePageStoreDefault.fieldTypeOptions],
     async handleUpdate() {
+      if (!isFormValid(this.template)) {
+        this.message = updateTemplatePageStoreDefault.validationMessage;
+        return;
+      }
       this.loading = true;
       const result = await axios.post('/templates/update', {
         ...this.template,
@@ -68,3 +73,5 @@ export const initUpdateTemplatePage = (pageData?: UpdateTemplatePageData) => {
 export interface UpdateTemplatePageData extends AuthenticatedPageData {
   template: Template;
 }
+
+const isFormValid = (template: Template) => template.name !== '';

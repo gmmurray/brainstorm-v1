@@ -86,6 +86,21 @@ describe('update template page scripts', () => {
     expect(pageStore.message).toBe('Error updating template');
   });
 
+  test('handle invalid form submission', async () => {
+    const pageStore = initUpdateTemplatePage({
+      user: mockUser,
+      template: mockTemplate1,
+    });
+    expect(pageStore.handleUpdate).toBeTruthy();
+    (pageStore.template as Template).name = '';
+
+    await pageStore.handleUpdate?.();
+    expect(mockedAxios.post).not.toBeCalled();
+    expect(pageStore.message).toBe(
+      updateTemplatePageStoreDefault.validationMessage,
+    );
+  });
+
   test('handle delete method success', async () => {
     const pageStore = initUpdateTemplatePage({
       user: mockUser,
