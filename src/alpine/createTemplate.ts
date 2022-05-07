@@ -31,7 +31,6 @@ export const initCreateTemplatePage = (
     newField: { ...createTemplatePageStoreDefault.newField },
     fieldTypeOptions: [...createTemplatePageStoreDefault.fieldTypeOptions],
     async handleCreate() {
-      console.log(this.name);
       if (!isFormValid(this.name)) {
         this.message = createTemplatePageStoreDefault.validationMessage;
         return;

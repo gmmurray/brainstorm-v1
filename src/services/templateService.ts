@@ -1,6 +1,7 @@
 import { ITemplateMongo, Template, TemplateModel } from '../models/template';
 
 import { ITemplateService } from '../types/services/ITemplateService';
+import { ReasonPhrases } from 'http-status-codes';
 
 export class TemplateService implements ITemplateService {
   private _templateModel: typeof TemplateModel;
@@ -16,6 +17,8 @@ export class TemplateService implements ITemplateService {
     const template = await this._templateModel
       .findOne({ $and: [{ _id: templateId }, { userId }] })
       .lean<ITemplateMongo>();
+
+    if (!template) throw new Error(ReasonPhrases.NOT_FOUND);
 
     return new Template(template);
   };
@@ -33,14 +36,17 @@ export class TemplateService implements ITemplateService {
       ...template,
       userId,
     });
+
     return new Template(newTemplate);
   };
 
   public update: ITemplateService['update'] = async (userId, template) => {
-    await this._templateModel.findOneAndReplace(
+    const result = await this._templateModel.findOneAndReplace(
       { $and: [{ _id: template.id }, { userId }] },
       template,
     );
+
+    if (!result) throw new Error(ReasonPhrases.BAD_REQUEST);
   };
 
   public delete: ITemplateService['delete'] = async (
