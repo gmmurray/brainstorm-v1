@@ -27,11 +27,7 @@ export class MockTemplateService implements ITemplateService {
   public create: ITemplateService['create'] = async (userId, template) =>
     Promise.resolve({ ...template, userId } as Template);
 
-  public update: ITemplateService['update'] = async (userId, template) =>
-    Promise.resolve();
+  public update: ITemplateService['update'] = async () => Promise.resolve();
 
-  public delete: ITemplateService['delete'] = async (
-    userId: string,
-    templateId,
-  ) => Promise.resolve();
+  public delete: ITemplateService['delete'] = async () => Promise.resolve();
 }

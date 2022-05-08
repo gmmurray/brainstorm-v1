@@ -49,10 +49,7 @@ export class TemplateService implements ITemplateService {
     if (!result) throw new Error(ReasonPhrases.BAD_REQUEST);
   };
 
-  public delete: ITemplateService['delete'] = async (
-    userId: string,
-    templateId,
-  ) => {
+  public delete: ITemplateService['delete'] = async (userId, templateId) => {
     await this._templateModel.findOneAndDelete({
       $and: [{ _id: templateId }, { userId }],
     });
