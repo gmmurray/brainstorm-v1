@@ -3,4 +3,7 @@ export const pageNames = {
   viewTemplates: 'viewTemplates',
   createTemplate: 'createTemplate',
   updateTemplate: 'updateTemplate',
+  viewIdeas: 'viewIdeas',
+  createIdea: 'createIdea',
+  updateIdea: 'updateIdea',
 };

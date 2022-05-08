@@ -5,7 +5,8 @@ module.exports = {
   preset: 'ts-jest',
   collectCoverageFrom: [
     'src/alpine/*',
-    'src/routes/templates/*',
+    'src/routes/templates/templatesHandler.ts',
+    'src/routes/ideas/ideasHandler.ts',
     'src/services/*',
   ],
 };

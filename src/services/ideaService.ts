@@ -63,12 +63,14 @@ export class IdeaService implements IIdeaService {
 
     return (await this.findById(userId, newIdea.id)) as Idea;
   };
+
   public update: IIdeaService['update'] = async (userId, idea) => {
     await this._ideaModel.findOneAndReplace(
       { $and: [{ _id: idea.id }, { userId }] },
       idea,
     );
   };
+
   public delete: IIdeaService['delete'] = async (userId, ideaId) => {
     await this._ideaModel.findOneAndDelete({
       $and: [{ _id: ideaId }, { userId }],
