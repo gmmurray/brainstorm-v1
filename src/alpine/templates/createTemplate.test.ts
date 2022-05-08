@@ -49,7 +49,7 @@ describe('create template page scripts', () => {
     (window.location as any) = { replace: jest.fn() };
 
     await pageStore.handleCreate?.();
-    expect(pageStore.loading).toBe(false);
+    expect(pageStore.loading).toBe(true);
     expect(mockedAxios.post).toBeCalledWith('/templates/create', {
       name: mockTemplate1.name,
       fields: mockTemplate1.fields,

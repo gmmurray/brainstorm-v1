@@ -13,12 +13,6 @@ export const mockIdea: Idea = {
     value: '123',
   })),
 };
-export const mockIdeas: { name: string; template: string }[] = [
-  {
-    name: 'test',
-    template: 'test',
-  },
-];
 
 export class MockIdeaService implements IIdeaService {
   public findById: IIdeaService['findById'] = (userId, ideaId) =>

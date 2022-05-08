@@ -41,12 +41,12 @@ export const initCreateTemplatePage = (
         userId: (this.user as AuthUser).sub,
         fields: this.fields,
       });
-      this.loading = false;
       if (result?.data?.templateId) {
         window.location.replace(
           `/templates/view?templateId=${result.data.templateId}`,
         );
       } else {
+        this.loading = false;
         this.message = result?.data?.message ?? 'Error creating template';
       }
     },

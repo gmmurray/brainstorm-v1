@@ -1,8 +1,10 @@
 import { AuthenticatedPageData } from '../types/pageData';
+import { Idea } from '../models/idea';
 import { Template } from '../models/template';
 
 export const initHomePage = (pageData?: HomePageData) => {
   if (!pageData) return {};
+
   return {
     user: pageData.user,
     ideas: pageData.ideas,
@@ -11,6 +13,6 @@ export const initHomePage = (pageData?: HomePageData) => {
 };
 
 export interface HomePageData extends AuthenticatedPageData {
-  ideas: { name: string; template: string }[];
+  ideas: Idea[];
   templates: Template[];
 }

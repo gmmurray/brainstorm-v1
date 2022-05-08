@@ -35,10 +35,10 @@ export const initUpdateTemplatePage = (pageData?: UpdateTemplatePageData) => {
       const result = await axios.post('/templates/update', {
         ...this.template,
       });
-      this.loading = false;
       if (result?.status === StatusCodes.OK) {
         window.location.reload();
       } else {
+        this.loading = false;
         this.message = result?.data?.message ?? 'Error updating template';
       }
     },
@@ -47,10 +47,10 @@ export const initUpdateTemplatePage = (pageData?: UpdateTemplatePageData) => {
       const result = await axios.delete(
         `/templates?templateId=${this.template.id}`,
       );
-      this.loading = false;
       if (result?.status === StatusCodes.NO_CONTENT) {
         window.location.replace('/templates');
       } else {
+        this.loading = false;
         this.message = result?.data?.message ?? 'Error deleting template';
       }
     },

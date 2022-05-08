@@ -5,9 +5,11 @@ jest.mock('./home');
 jest.mock('./templates/viewTemplates');
 jest.mock('./templates/createTemplate');
 jest.mock('./templates/updateTemplate');
+jest.mock('./ideas/createIdea');
 
 import { initClientApp, initStore } from '.';
 
+import { initCreateIdeaPage } from './ideas/createIdea';
 import { initCreateTemplatePage } from './templates/createTemplate';
 import { initHomePage } from './home';
 import { initUpdateTemplatePage } from './templates/updateTemplate';
@@ -54,5 +56,11 @@ describe('store initialization', () => {
     initStore(input, pageNames.updateTemplate);
     expect(initUpdateTemplatePage).toBeCalledTimes(1);
     expect(initUpdateTemplatePage).toBeCalledWith(input);
+  });
+  test('initializes createIdea store', () => {
+    const input = {};
+    initStore(input, pageNames.createIdea);
+    expect(initCreateIdeaPage).toBeCalledTimes(1);
+    expect(initCreateIdeaPage).toBeCalledWith(input);
   });
 });

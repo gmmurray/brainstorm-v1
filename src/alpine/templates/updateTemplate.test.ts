@@ -55,7 +55,7 @@ describe('update template page scripts', () => {
 
     await pageStore.handleUpdate?.();
 
-    expect(pageStore.loading).toBe(false);
+    expect(pageStore.loading).toBe(true);
     expect(mockedAxios.post).toBeCalledWith('/templates/update', {
       ...mockTemplate1,
     });
@@ -117,7 +117,7 @@ describe('update template page scripts', () => {
 
     await pageStore.handleDelete?.();
 
-    expect(pageStore.loading).toBe(false);
+    expect(pageStore.loading).toBe(true);
     expect(mockedAxios.delete).toBeCalledWith(
       `/templates?templateId=${pageStore.template?.id}`,
     );

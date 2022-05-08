@@ -1,3 +1,4 @@
+import { CreateIdeaPageData, initCreateIdeaPage } from './ideas/createIdea';
 import { HomePageData, initHomePage } from './home';
 import {
   UpdateTemplatePageData,
@@ -30,6 +31,8 @@ export const initStore = (data: Record<string, any>, name: string) => {
       return initCreateTemplatePage(data as AuthenticatedPageData);
     case pageNames.updateTemplate:
       return initUpdateTemplatePage(data as UpdateTemplatePageData);
+    case pageNames.createIdea:
+      return initCreateIdeaPage(data as CreateIdeaPageData);
     default:
       return {};
   }

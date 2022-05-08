@@ -2,7 +2,9 @@
 <div x-cloak x-data="$store.viewTemplates">
   <h1 class="display-1">templates</h1>
   <a class="btn btn-outline-primary" href="/templates/create">new template</a>
-  <div x-show="templates.length === 0"></div>
+  <div x-show="templates.length === 0">
+    <h4 class="display-4 text-muted">no templates yet</h4>
+  </div>
   <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
     <template x-for="template in templates">
       <div class="col">
