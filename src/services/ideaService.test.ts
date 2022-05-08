@@ -4,6 +4,7 @@ import {
   quitInMemoryDatabase,
 } from '../loaders/inMemoryLoader';
 
+import { HOME_PAGE_IDEA_COUNT } from '../constants/homePageItems';
 import { IIdeaService } from '../types/services/IIdeaService';
 import { IdeaModel } from '../models/idea';
 import { IdeaService } from './ideaService';
@@ -95,6 +96,18 @@ describe('idea service', () => {
       mockTemplate1.id,
     );
     expect(result.length).toBe(0);
+  });
+
+  it('finds recent success', async () => {
+    const template = await TemplateModel.create(mockTemplate1);
+    const ideas = await IdeaModel.insertMany([
+      { ...mockIdea, template: template.id },
+    ]);
+
+    const result = await ideaService.findRecent(mockIdea.userId);
+
+    expect(result.length).toBe(ideas.length);
+    expect(result.length).toBeLessThanOrEqual(HOME_PAGE_IDEA_COUNT);
   });
 
   it('creates success', async () => {

@@ -1,11 +1,10 @@
-import { Template } from '../models/template';
 import { initViewTemplatesPage } from './viewTemplates';
-import { mockTemplate1 } from '../mock/templates';
-import { mockUser } from '../mock/users';
+import { mockTemplate1 } from '../../mock/templates';
+import { mockUser } from '../../mock/users';
 
 const mockPageData = {
   user: mockUser,
-  templates: [mockTemplate1] as Template[],
+  templates: [mockTemplate1],
 };
 
 describe('view templates page scripts', () => {

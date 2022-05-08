@@ -2,12 +2,15 @@ import { HomePageData, initHomePage } from './home';
 import {
   UpdateTemplatePageData,
   initUpdateTemplatePage,
-} from './updateTemplate';
-import { ViewTemplatesPageData, initViewTemplatesPage } from './viewTemplates';
+} from './templates/updateTemplate';
+import {
+  ViewTemplatesPageData,
+  initViewTemplatesPage,
+} from './templates/viewTemplates';
 
 import Alpine from 'alpinejs';
 import { AuthenticatedPageData } from '../types/pageData';
-import { initCreateTemplatePage } from './createTemplate';
+import { initCreateTemplatePage } from './templates/createTemplate';
 import { pageNames } from '../constants/pageNames';
 
 declare global {

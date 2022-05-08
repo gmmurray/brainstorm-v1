@@ -1,5 +1,6 @@
 import { ITemplateMongo, Template, TemplateModel } from '../models/template';
 
+import { HOME_PAGE_TEMPLATE_COUNT } from '../constants/homePageItems';
 import { ITemplateService } from '../types/services/ITemplateService';
 import { ReasonPhrases } from 'http-status-codes';
 
@@ -26,6 +27,16 @@ export class TemplateService implements ITemplateService {
   public findByUserId: ITemplateService['findByUserId'] = async userId => {
     const templates = await this._templateModel
       .find({ userId })
+      .lean<ITemplateMongo[]>();
+
+    return templates.map(t => new Template(t));
+  };
+
+  public findRecent: ITemplateService['findRecent'] = async userId => {
+    const templates = await this._templateModel
+      .find({ userId })
+      .sort({ createdAt: -1 })
+      .limit(HOME_PAGE_TEMPLATE_COUNT)
       .lean<ITemplateMongo[]>();
 
     return templates.map(t => new Template(t));

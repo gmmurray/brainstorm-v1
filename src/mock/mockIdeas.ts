@@ -32,6 +32,8 @@ export class MockIdeaService implements IIdeaService {
     Promise.resolve([
       { ...mockIdea, userId, template: { ...mockTemplate1, id: templateId } },
     ]);
+  public findRecent: IIdeaService['findRecent'] = userId =>
+    Promise.resolve([{ ...mockIdea, userId }]);
   public create: IIdeaService['create'] = (
     userId: string,
     idea: Partial<Idea>,

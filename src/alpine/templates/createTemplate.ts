@@ -1,7 +1,7 @@
-import { ITemplateField, TemplateFieldTypes } from '../types/templateFields';
+import { ITemplateField, TemplateFieldTypes } from '../../types/templateFields';
 
-import { AuthUser } from '../types/user';
-import { AuthenticatedPageData } from '../types/pageData';
+import { AuthUser } from '../../types/user';
+import { AuthenticatedPageData } from '../../types/pageData';
 import axios from 'axios';
 
 export const createTemplatePageStoreDefault = {

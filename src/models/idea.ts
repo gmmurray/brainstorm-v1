@@ -19,14 +19,17 @@ const ideaFieldSchema = new Schema<IIdeaField>({
   value: Schema.Types.Mixed,
 });
 
-const ideaSchema = new Schema<IIdea>({
-  userId: { type: String, required: true },
-  template: {
-    type: Schema.Types.ObjectId,
-    ref: 'Template',
+const ideaSchema = new Schema<IIdea>(
+  {
+    userId: { type: String, required: true },
+    template: {
+      type: Schema.Types.ObjectId,
+      ref: 'Template',
+    },
+    fields: { type: [ideaFieldSchema] },
   },
-  fields: { type: [ideaFieldSchema] },
-});
+  { timestamps: true },
+);
 
 export const IdeaModel = model<IIdea>('Idea', ideaSchema);
 

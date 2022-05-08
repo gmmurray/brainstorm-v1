@@ -2,16 +2,16 @@
  * @jest-environment jsdom
  */
 jest.mock('./home');
-jest.mock('./viewTemplates');
-jest.mock('./createTemplate');
-jest.mock('./updateTemplate');
+jest.mock('./templates/viewTemplates');
+jest.mock('./templates/createTemplate');
+jest.mock('./templates/updateTemplate');
 
 import { initClientApp, initStore } from '.';
 
-import { initCreateTemplatePage } from './createTemplate';
+import { initCreateTemplatePage } from './templates/createTemplate';
 import { initHomePage } from './home';
-import { initUpdateTemplatePage } from './updateTemplate';
-import { initViewTemplatesPage } from './viewTemplates';
+import { initUpdateTemplatePage } from './templates/updateTemplate';
+import { initViewTemplatesPage } from './templates/viewTemplates';
 import { pageNames } from '../constants/pageNames';
 
 jest.mock('./home');

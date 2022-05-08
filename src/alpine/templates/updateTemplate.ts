@@ -1,8 +1,8 @@
-import { ITemplateField, TemplateFieldTypes } from '../types/templateFields';
+import { ITemplateField, TemplateFieldTypes } from '../../types/templateFields';
 
-import { AuthenticatedPageData } from '../types/pageData';
+import { AuthenticatedPageData } from '../../types/pageData';
 import { StatusCodes } from 'http-status-codes';
-import { Template } from '../models/template';
+import { Template } from '../../models/template';
 import axios from 'axios';
 
 export const updateTemplatePageStoreDefault = {

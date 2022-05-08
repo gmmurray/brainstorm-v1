@@ -1,5 +1,5 @@
-import { AuthenticatedPageData } from '../types/pageData';
-import { Template } from '../models/template';
+import { AuthenticatedPageData } from '../../types/pageData';
+import { Template } from '../../models/template';
 
 export const initViewTemplatesPage = (pageData?: ViewTemplatesPageData) => {
   if (!pageData) return {};

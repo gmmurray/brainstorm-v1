@@ -3,6 +3,7 @@ import {
   quitInMemoryDatabase,
 } from '../loaders/inMemoryLoader';
 
+import { HOME_PAGE_TEMPLATE_COUNT } from '../constants/homePageItems';
 import { ITemplateService } from '../types/services/ITemplateService';
 import { ReasonPhrases } from 'http-status-codes';
 import { TemplateModel } from '../models/template';
@@ -50,6 +51,15 @@ describe('template service', () => {
 
     const result = await templateService.findByUserId(mockTemplate1.userId);
     expect(result.length).toBe(0);
+  });
+
+  it('finds recent success', async () => {
+    const templates = await TemplateModel.insertMany([mockTemplate1]);
+
+    const result = await templateService.findRecent(mockTemplate1.userId);
+
+    expect(result.length).toBe(templates.length);
+    expect(result.length).toBeLessThanOrEqual(HOME_PAGE_TEMPLATE_COUNT);
   });
 
   it('creates success', async () => {

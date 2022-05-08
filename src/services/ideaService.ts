@@ -1,6 +1,7 @@
 import { IIdea, IIdeaMongo, Idea, IdeaModel } from '../models/idea';
 import { ITemplateMongo, Template } from '../models/template';
 
+import { HOME_PAGE_IDEA_COUNT } from '../constants/homePageItems';
 import { IIdeaService } from '../types/services/IIdeaService';
 import { ReasonPhrases } from 'http-status-codes';
 
@@ -44,6 +45,19 @@ export class IdeaService implements IIdeaService {
         $and: [{ userId }, { template: templateId }],
       })
       .populate('template')
+      .lean<IIdeaMongo[]>();
+
+    return ideas.map(i => ({
+      ...new Idea(i),
+      template: new Template(i.template as ITemplateMongo),
+    }));
+  };
+
+  public findRecent: IIdeaService['findRecent'] = async userId => {
+    const ideas = await this._ideaModel
+      .find({ userId })
+      .sort({ createdAt: -1 })
+      .limit(HOME_PAGE_IDEA_COUNT)
       .lean<IIdeaMongo[]>();
 
     return ideas.map(i => ({

@@ -8,11 +8,11 @@ import {
 } from './updateTemplate';
 
 import { StatusCodes } from 'http-status-codes';
-import { Template } from '../models/template';
-import { TemplateFieldTypes } from '../types/templateFields';
+import { Template } from '../../models/template';
+import { TemplateFieldTypes } from '../../types/templateFields';
 import axios from 'axios';
-import { mockTemplate1 } from '../mock/templates';
-import { mockUser } from '../mock/users';
+import { mockTemplate1 } from '../../mock/templates';
+import { mockUser } from '../../mock/users';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;

@@ -24,6 +24,9 @@ export class MockTemplateService implements ITemplateService {
   public findByUserId: ITemplateService['findByUserId'] = async userId =>
     Promise.resolve([{ ...mockTemplate1, userId }]);
 
+  public findRecent: ITemplateService['findRecent'] = async userId =>
+    Promise.resolve([{ ...mockTemplate1, userId }]);
+
   public create: ITemplateService['create'] = async (userId, template) =>
     Promise.resolve({ ...template, userId } as Template);
 

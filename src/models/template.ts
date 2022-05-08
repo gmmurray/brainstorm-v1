@@ -13,11 +13,14 @@ const templateFieldSchema = new Schema<ITemplateField>({
   type: String,
 });
 
-const templateSchema = new Schema<ITemplate>({
-  userId: { type: String, required: true },
-  name: { type: String, required: true, minlength: 1 },
-  fields: { type: [templateFieldSchema], required: true },
-});
+const templateSchema = new Schema<ITemplate>(
+  {
+    userId: { type: String, required: true },
+    name: { type: String, required: true, minlength: 1 },
+    fields: { type: [templateFieldSchema], required: true },
+  },
+  { timestamps: true },
+);
 
 export const TemplateModel = model<ITemplate>('Template', templateSchema);
 export interface ITemplateMongo extends ITemplate {

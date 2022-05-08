@@ -7,6 +7,7 @@ module.exports = {
     'src/alpine/*',
     'src/routes/templates/templatesHandler.ts',
     'src/routes/ideas/ideasHandler.ts',
+    'src/routes/home/homeHandler.ts',
     'src/services/*',
   ],
 };
