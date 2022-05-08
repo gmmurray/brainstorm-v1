@@ -1,7 +1,7 @@
 import { MockTemplateService, mockTemplate1 } from '../../mock/templates';
-import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { Request, Response } from 'express';
 
+import { ReasonPhrases } from 'http-status-codes';
 import { TemplateHandlers } from './templatesHandlers';
 import { mockUser } from '../../mock/users';
 import { pageNames } from '../../constants/pageNames';
@@ -17,7 +17,7 @@ const baseRequest = {
 } as any as Request;
 
 const baseResponse = {
-  status: (params: any) => baseResponse,
+  status: () => baseResponse,
   json: (params: any) => params,
   send: (params: any) => params,
 } as any as Response;

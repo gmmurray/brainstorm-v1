@@ -6,9 +6,6 @@ module.exports = {
   collectCoverageFrom: [
     'src/alpine/*',
     'src/routes/templates/*',
-    // 'src/loaders/*',
-    // 'src/models/*',
     'src/services/*',
-    // 'src/app.ts',
   ],
 };
