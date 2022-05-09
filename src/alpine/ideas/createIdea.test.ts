@@ -23,8 +23,15 @@ describe('create idea page scripts', () => {
       user: mockUser,
       templates: [mockTemplate1],
     });
-    const { user, templates, selectedTemplate, fields, loading, message } =
-      pageStore;
+    const {
+      user,
+      templates,
+      name,
+      selectedTemplate,
+      fields,
+      loading,
+      message,
+    } = pageStore;
 
     expect(user).toBe(mockUser);
     expect(templates).toStrictEqual([mockTemplate1]);
@@ -32,6 +39,7 @@ describe('create idea page scripts', () => {
     expect(fields).toBe(createIdeaPageStoreDefault.fields);
     expect(loading).toBe(createIdeaPageStoreDefault.loading);
     expect(message).toBe(createIdeaPageStoreDefault.message);
+    expect(name).toBe(createIdeaPageStoreDefault.name);
   });
 
   it('handles select template', () => {
@@ -91,6 +99,7 @@ describe('create idea page scripts', () => {
 
     pageStore.selectedTemplate = 0;
     pageStore.fields = fields;
+    pageStore.name = 'test';
 
     await pageStore.handleCreate?.();
 
@@ -98,6 +107,7 @@ describe('create idea page scripts', () => {
     expect(mockedAxios.post).toBeCalledWith('/ideas/create', {
       userId: mockUser.sub,
       template: mockTemplate1.id,
+      name: 'test',
       fields,
     });
     expect(window.location.replace).toBeCalledWith(
@@ -112,6 +122,7 @@ describe('create idea page scripts', () => {
     });
 
     pageStore.selectedTemplate = 0;
+    pageStore.name = 'test';
 
     expect(pageStore.handleCreate).toBeTruthy();
 

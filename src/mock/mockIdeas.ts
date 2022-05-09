@@ -5,6 +5,7 @@ import { mockUser } from './users';
 
 export const mockIdea: Idea = {
   id: '62773783a517247ec3dea7fd',
+  name: 'test idea',
   template: mockTemplate1,
   userId: mockUser.sub,
   fields: mockTemplate1.fields.map(f => ({

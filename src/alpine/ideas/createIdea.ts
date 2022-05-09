@@ -10,6 +10,7 @@ export const createIdeaPageStoreDefault = {
   selectedTemplate: undefined,
   fields: [],
   message: '',
+  name: '',
   validationMessage: 'validation error',
   loading: false,
 };
@@ -20,6 +21,7 @@ export const initCreateIdeaPage = (pageData?: CreateIdeaPageData): Result => {
   return {
     user: pageData.user,
     templates: pageData.templates,
+    name: createIdeaPageStoreDefault.name,
     selectedTemplate: createIdeaPageStoreDefault.selectedTemplate,
     fields: createIdeaPageStoreDefault.fields,
     message: createIdeaPageStoreDefault.message,
@@ -41,10 +43,14 @@ export const initCreateIdeaPage = (pageData?: CreateIdeaPageData): Result => {
       }
     },
     async handleCreate() {
-      if (!isFormValid(this.templates as Template[], this.selectedTemplate)) {
-        console.log('here');
+      if (
+        !isFormValid(
+          this.templates as Template[],
+          this.selectedTemplate,
+          this.name,
+        )
+      ) {
         this.message = createIdeaPageStoreDefault.validationMessage;
-        console.log(this.message);
         return;
       }
 
@@ -56,6 +62,7 @@ export const initCreateIdeaPage = (pageData?: CreateIdeaPageData): Result => {
         userId: (this.user as AuthUser).sub as string,
         template: ideaTemplate.id,
         fields: this.fields as IIdeaField[],
+        name: this.name as string,
       };
 
       const result = await axios.post('/ideas/create', idea);
@@ -77,6 +84,7 @@ export interface CreateIdeaPageData extends AuthenticatedPageData {
 interface Result {
   user?: AuthUser;
   templates?: Template[];
+  name?: string;
   selectedTemplate?: number;
   fields?: IIdeaField[];
   message?: string;
@@ -85,5 +93,12 @@ interface Result {
   handleCreate?: () => Promise<void>;
 }
 
-const isFormValid = (templates: Template[], selectedTemplate?: number) =>
-  selectedTemplate !== undefined && templates[selectedTemplate] !== undefined;
+const isFormValid = (
+  templates: Template[],
+  selectedTemplate?: number,
+  name?: string,
+) =>
+  selectedTemplate !== undefined &&
+  templates[selectedTemplate] !== undefined &&
+  name &&
+  name.length > 0;

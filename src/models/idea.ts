@@ -9,6 +9,7 @@ export interface IIdeaField extends ITemplateField {
 
 export interface IIdea {
   userId: string;
+  name: string;
   template?: string | ITemplate;
   fields: IIdeaField[];
 }
@@ -22,6 +23,7 @@ const ideaFieldSchema = new Schema<IIdeaField>({
 const ideaSchema = new Schema<IIdea>(
   {
     userId: { type: String, required: true },
+    name: { type: String, required: true },
     template: {
       type: Schema.Types.ObjectId,
       ref: 'Template',
@@ -40,11 +42,13 @@ export interface IIdeaMongo extends IIdea {
 export class Idea implements IIdea {
   id: string;
   userId: string;
+  name: string;
   fields: IIdeaField[];
   template?: Template | string;
   constructor(idea: IIdeaMongo) {
     this.id = idea._id.toString();
     this.userId = idea.userId;
+    this.name = idea.name;
     this.fields = idea.fields;
     this.template = idea.template as Template;
   }

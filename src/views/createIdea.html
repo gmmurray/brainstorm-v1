@@ -7,6 +7,11 @@
       <div class="col-12" x-show="message && message !== ''">
         <p x-text="message" class="text-danger fw-bold"></p>
       </div>
+      <div class="col-lg-6 my-1">
+        <label class="form-label">name</label>
+        <input class="form-control" x-model="name" required type="text" />
+        <div class="invalid-feedback">name is required</div>
+      </div>
       <div class="my-1 col-lg-6">
         <label class="form-label">template</label>
         <select

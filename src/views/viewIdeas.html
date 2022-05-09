@@ -1,0 +1,29 @@
+{{#>layout title="view ideas" store="viewIdeas"}}
+<div x-cloak x-data="$store.viewIdeas">
+  <h1 class="display-1">ideas</h1>
+  <a class="btn btn-outline-primary" href="/ideas/create">new idea</a>
+  <div x-show="ideas.length === 0">
+    <h4 class="display-4 text-muted">no ideas yet</h4>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+    <template x-for="idea in ideas">
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title" x-text="idea.name"></h5>
+            <h6
+              class="card-subtitle mb-2 text-muted mt-auto"
+              x-text="idea.template?.name ?? 'no template'"
+            ></h6>
+          </div>
+          <div class="card-footer">
+            <a :href="`/ideas/view?ideaId=${idea.id}`" class="card-link"
+              >view</a
+            >
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+</div>
+{{/layout}}

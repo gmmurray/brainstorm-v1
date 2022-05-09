@@ -12,7 +12,7 @@ const ideaHandlers = new IdeasHandlers(ideaService, templateService);
 
 router.get('/create', ideaHandlers.createView);
 router.post('/create', ideaHandlers.createOperation);
-router.get('/view', ideaHandlers.ideasView);
+router.get('/view', ideaHandlers.updateView);
 router.post('/update', ideaHandlers.updateOperation);
 router.delete('/', ideaHandlers.deleteOperation);
 router.get('*', ideaHandlers.ideasView);
