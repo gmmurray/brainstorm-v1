@@ -1,0 +1,98 @@
+{{#>layout title="new idea" store="createIdea"}}
+<div x-cloak x-data="$store.createIdea">
+  <h1 class="display-1">new idea</h1>
+  <a class="btn btn-outline-primary" href="/ideas">back to ideas</a>
+  <form @submit.prevent="handleCreate" novalidate class="needs-validation mt-3">
+    <div class="row">
+      <div class="col-12" x-show="message && message !== ''">
+        <p x-text="message" class="text-danger fw-bold"></p>
+      </div>
+      <div class="my-1 col-lg-6">
+        <label class="form-label">template</label>
+        <select
+          class="form-select"
+          x-model="selectedTemplate"
+          x-init="$watch('selectedTemplate',() => handleSelectTemplate(selectedTemplate))"
+          required
+        >
+          <option selected value="">select...</option>
+          <template x-for="(template, t) in templates">
+            <option x-text="template.name" :value="t"></option>
+          </template>
+        </select>
+        <div class="invalid-feedback">template is required</div>
+      </div>
+      <template x-show="fields.length > 0" x-for="field in fields">
+        <div class="col-12 my-1">
+          <label class="form-label" x-text="field.name"></label>
+          <template x-if="field.type === 'string'">
+            <textarea
+              class="form-control"
+              x-model="field.value"
+              rows="3"
+            ></textarea>
+          </template>
+          <template x-if="field.type === 'boolean'"
+            ><div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  x-model="field.value"
+                  :value="true"
+                />
+                <label class="form-check-label">yes</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  x-model="field.value"
+                  :value="false"
+                />
+                <label class="form-check-label">no</label>
+              </div>
+            </div></template
+          >
+          <template x-if="field.type === 'number'"
+            ><input class="form-control" type="number" x-model="field.value"
+          /></template>
+        </div>
+      </template>
+      <div class="col-12 my-1">
+        <button type="submit" :disabled="loading" class="btn btn-primary">
+          <span
+            x-show="loading"
+            class="spinner-border spinner-border-sm"
+          ></span>
+          <span x-text="loading ? 'saving...' : 'save'"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+{{/layout}}
+<script>
+  (function () {
+    'use strict';
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation');
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener(
+        'submit',
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add('was-validated');
+        },
+        false,
+      );
+    });
+  })();
+</script>
