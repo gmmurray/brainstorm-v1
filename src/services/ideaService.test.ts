@@ -95,7 +95,7 @@ describe('idea service', () => {
       mockIdea.userId,
       mockTemplate1.id,
     );
-    expect(result.length).toBe(0);
+    expect(result.length).toBe(1);
   });
 
   it('finds recent success', async () => {
