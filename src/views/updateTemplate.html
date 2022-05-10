@@ -82,34 +82,6 @@
         </ol>
       </div>
     </div>
-
-    <!-- <div>
-        <input type="text" x-model="template.name" placeholder="name" />
-      </div>
-      <div>
-        <template x-for="(field, f) in template.fields">
-          <div>
-            <span x-text="field.name"></span> (<span x-text="field.type"></span
-            >)
-            <button @click.prevent="() => handleRemoveField(f)">remove</button>
-          </div>
-        </template>
-      </div>
-      <div>
-        <input type="text" x-model="newField.name" placeholder="add a field" />
-        <select x-model="newField.type">
-          <template x-for="option in fieldTypeOptions">
-            <option x-text="option"></option>
-          </template>
-        </select>
-        <button @click.prevent="handleAddField">+</button>
-      </div>
-      <button type="submit" :disabled="loading">save</button>
-    </form>
-  </div>
-  <div>
-    <button @click.prevent="handleDelete" :disabled="loading">delete</button>
-  </div> -->
     {{/layout}}
     <script>
       (function () {
