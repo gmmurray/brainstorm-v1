@@ -22,7 +22,11 @@
           readonly
         />
       </div>
-      <template x-show="idea.fields.length > 0" x-for="field in idea.fields">
+      <template
+        x-show="idea.fields.length > 0"
+        x-for="(field, f) in idea.fields"
+        :key="field.name"
+      >
         <div class="col-12 my-1">
           <label class="form-label" x-text="field.name"></label>
           <template x-if="field.type === 'string'">
@@ -40,8 +44,12 @@
                   type="radio"
                   x-model="field.value"
                   :value="true"
+                  :name="`${f}-checkbox-true`"
+                  :id="`${f}-checkbox-true`"
                 />
-                <label class="form-check-label">yes</label>
+                <label class="form-check-label" :for="`${f}-checkbox-true`"
+                  >yes</label
+                >
               </div>
               <div class="form-check">
                 <input
@@ -49,8 +57,12 @@
                   type="radio"
                   x-model="field.value"
                   :value="false"
+                  :name="`${f}-checkbox-false`"
+                  :id="`${f}-checkbox-false`"
                 />
-                <label class="form-check-label">no</label>
+                <label class="form-check-label" :for="`${f}-checkbox-false`"
+                  >no</label
+                >
               </div>
             </div></template
           >

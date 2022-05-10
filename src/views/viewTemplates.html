@@ -1,13 +1,12 @@
 {{#>layout title="view templates" store="viewTemplates"}}
 <div x-cloak x-data="$store.viewTemplates">
   <h1 class="display-1">templates</h1>
+  <p class="fs-6 text-muted" x-text="`${templates.length} template(s)`"></p>
   <div class="row g-4">
-    <div class="col-12 col-md-4">
-      <a class="btn btn-outline-primary" href="/templates/create"
-        >new template</a
-      >
+    <div class="col-12 col-md-auto">
+      <a class="btn btn-primary" href="/templates/create">new template</a>
     </div>
-    <div class="col-12 col-md-8">
+    <div class="col">
       <div class="input-group">
         <input
           type="text"
@@ -27,7 +26,7 @@
   </div>
 
   <div x-show="templates.length === 0">
-    <h4 class="display-4 text-muted">no templates yet</h4>
+    <h4 class="display-4 text-muted text-center mt-5">no templates yet</h4>
   </div>
   <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
     <template x-for="template in visibleTemplates">

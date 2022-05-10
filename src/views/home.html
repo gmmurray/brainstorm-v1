@@ -1,37 +1,90 @@
 {{#>layout title="home" store="home"}}
 
 <div x-cloak x-data="$store.home">
-  <h1>home</h1>
-  <div>
-    <h2 x-text="`hello ${user.name} (${user.sub})`"></h2>
-  </div>
-  <div>
-    <h3>ideas</h3>
-    <div>
-      <div x-show="ideas.length === 0">no ideas yet</div>
-      <template x-for="idea in ideas">
-        <p x-text="`${idea.name} (${idea.template} template)`"></p>
-      </template>
+  <h1 class="display-1">home</h1>
+  <div class="row">
+    <div class="col-12">
+      <h5 class="display-5">ideas</h5>
+    </div>
+    <div class="col-12">
+      <div x-show="ideas.length === 0">
+        <h4 class="fs-4 text-muted">no ideas yet</h4>
+      </div>
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+        <template x-for="idea in ideas">
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title" x-text="idea.name"></h5>
+                <h6
+                  class="card-subtitle mb-2 text-muted mt-auto"
+                  x-text="idea.template?.name ?? 'no template'"
+                ></h6>
+              </div>
+              <div class="card-footer">
+                <a :href="`/ideas/view?ideaId=${idea.id}`" class="card-link"
+                  >view</a
+                >
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+    <div class="col-12 mt-3">
+      <a class="btn btn-primary" href="/ideas" x-show="ideas.length > 0"
+        >view all <i class="bi bi-arrow-right-short"></i
+      ></a>
+      <a
+        class="btn btn-primary"
+        href="/ideas/create"
+        x-show="ideas.length === 0"
+        >create one <i class="bi bi-plus"></i
+      ></a>
     </div>
   </div>
-  <div>
-    <h3>templates</h3>
-    <a href="/templates">view</a>
-    <div>
-      <div x-show="templates.length === 0">no templates yet</div>
-      <template x-for="(template, i) in templates" :key="template.id">
-        <ul>
-          <li x-text="`name: ${template.name}`"></li>
-          <li>
-            fields
-            <ul>
-              <template x-for="(field, j) in template.fields">
-                <li x-text="field"></li>
-              </template>
-            </ul>
-          </li>
-        </ul>
-      </template>
+  <hr />
+  <div class="row">
+    <div class="col-12">
+      <h5 class="display-5">templates</h5>
+    </div>
+    <div class="col-12">
+      <div x-show="templates.length === 0">
+        <h4 class="fs-4 text-muted">no templates yet</h4>
+      </div>
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+        <template x-for="template in templates">
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title" x-text="template.name"></h5>
+                <h6
+                  class="card-subtitle mb-2 text-muted mt-auto"
+                  x-text="`${template.fields.length} field(s)`"
+                ></h6>
+              </div>
+              <div class="card-footer">
+                <a
+                  :href="`/templates/view?templateId=${template.id}`"
+                  class="card-link"
+                  >view</a
+                >
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+    <div class="col-12 mt-3">
+      <a class="btn btn-primary" href="/templates" x-show="templates.length > 0"
+        >view all <i class="bi bi-arrow-right-short"></i
+      ></a>
+      <a
+        class="btn btn-primary"
+        href="/templates/create"
+        x-show="templates.length === 0"
+        >create one <i class="bi bi-plus"></i
+      ></a>
     </div>
   </div>
 </div>
