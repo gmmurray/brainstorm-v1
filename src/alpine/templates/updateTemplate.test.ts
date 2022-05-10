@@ -11,6 +11,7 @@ import { StatusCodes } from 'http-status-codes';
 import { Template } from '../../models/template';
 import { TemplateFieldTypes } from '../../types/templateFields';
 import axios from 'axios';
+import { mockLocationProperty } from '../../mock/location';
 import { mockTemplate1 } from '../../mock/templates';
 import { mockUser } from '../../mock/users';
 
@@ -50,8 +51,7 @@ describe('update template page scripts', () => {
 
     mockedAxios.post.mockResolvedValueOnce({ status: StatusCodes.OK });
 
-    delete (window as any).location;
-    (window.location as any) = { reload: jest.fn() };
+    mockLocationProperty('reload');
 
     await pageStore.handleUpdate?.();
 
@@ -112,8 +112,7 @@ describe('update template page scripts', () => {
       status: StatusCodes.NO_CONTENT,
     });
 
-    delete (window as any).location;
-    (window.location as any) = { replace: jest.fn() };
+    mockLocationProperty('replace');
 
     await pageStore.handleDelete?.();
 

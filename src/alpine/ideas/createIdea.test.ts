@@ -7,6 +7,7 @@ import { createIdeaPageStoreDefault, initCreateIdeaPage } from './createIdea';
 import { IIdeaField } from '../../models/idea';
 import { ITemplateField } from '../../types/templateFields';
 import axios from 'axios';
+import { mockLocationProperty } from '../../mock/location';
 import { mockTemplate1 } from '../../mock/templates';
 import { mockUser } from '../../mock/users';
 
@@ -94,8 +95,7 @@ describe('create idea page scripts', () => {
     const ideaId = '123';
     mockedAxios.post.mockResolvedValueOnce({ data: { ideaId } });
 
-    delete (window as any).location;
-    (window.location as any) = { replace: jest.fn() };
+    mockLocationProperty('replace');
 
     pageStore.selectedTemplate = 0;
     pageStore.fields = fields;

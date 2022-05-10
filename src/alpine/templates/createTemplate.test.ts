@@ -9,6 +9,7 @@ import {
 
 import { TemplateFieldTypes } from '../../types/templateFields';
 import axios from 'axios';
+import { mockLocationProperty } from '../../mock/location';
 import { mockTemplate1 } from '../../mock/templates';
 import { mockUser } from '../../mock/users';
 
@@ -45,8 +46,7 @@ describe('create template page scripts', () => {
     const templateId = '123';
     mockedAxios.post.mockResolvedValueOnce({ data: { templateId } });
 
-    delete (window as any).location;
-    (window.location as any) = { replace: jest.fn() };
+    mockLocationProperty('replace');
 
     await pageStore.handleCreate?.();
     expect(pageStore.loading).toBe(true);

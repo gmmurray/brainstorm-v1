@@ -8,6 +8,7 @@ import { Idea } from '../../models/idea';
 import { StatusCodes } from 'http-status-codes';
 import axios from 'axios';
 import { mockIdea } from '../../mock/mockIdeas';
+import { mockLocationProperty } from '../../mock/location';
 import { mockUser } from '../../mock/users';
 
 jest.mock('axios');
@@ -39,8 +40,7 @@ describe('update idea page scripts', () => {
 
     mockedAxios.post.mockResolvedValueOnce({ status: StatusCodes.OK });
 
-    delete (window as any).location;
-    (window.location as any) = { reload: jest.fn() };
+    mockLocationProperty('reload');
 
     await pageStore.handleUpdate?.();
 
@@ -99,8 +99,7 @@ describe('update idea page scripts', () => {
       status: StatusCodes.NO_CONTENT,
     });
 
-    delete (window as any).location;
-    (window.location as any) = { replace: jest.fn() };
+    mockLocationProperty('replace');
 
     await pageStore.handleDelete?.();
 

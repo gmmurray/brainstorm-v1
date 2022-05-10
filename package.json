@@ -16,7 +16,7 @@
     "postbuild": "ts-node ./copyViews.ts",
     "start": "node ./build/app.js",
     "test": "jest --watch --collectCoverage --runInBand",
-    "test:husky": "jest",
+    "test:husky": "jest --runInBand",
     "prepare": "husky install"
   },
   "devDependencies": {
