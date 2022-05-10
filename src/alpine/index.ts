@@ -1,5 +1,6 @@
 import { CreateIdeaPageData, initCreateIdeaPage } from './ideas/createIdea';
 import { HomePageData, initHomePage } from './home';
+import { UpdateIdeaPageData, initUpdateIdeaPage } from './ideas/updateIdea';
 import {
   UpdateTemplatePageData,
   initUpdateTemplatePage,
@@ -36,6 +37,8 @@ export const initStore = (data: Record<string, any>, name: string) => {
       return initCreateIdeaPage(data as CreateIdeaPageData);
     case pageNames.viewIdeas:
       return initViewIdeasPage(data as ViewIdeasPageData);
+    case pageNames.updateIdea:
+      return initUpdateIdeaPage(data as UpdateIdeaPageData);
     default:
       return {};
   }
