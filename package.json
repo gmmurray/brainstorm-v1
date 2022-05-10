@@ -17,14 +17,7 @@
     "start": "node ./build/app.js",
     "test": "jest --watch --collectCoverage --runInBand",
     "test:husky": "jest",
-    "postinstall": "husky install",
-    "pre-commit": "pretty-quick --staged && yarn test:husky",
     "prepare": "husky install"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged && yarn test:husky"
-    }
   },
   "devDependencies": {
     "@types/alpinejs": "^3.7.0",
