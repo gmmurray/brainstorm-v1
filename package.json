@@ -18,7 +18,8 @@
     "test": "jest --watch --collectCoverage --runInBand",
     "test:husky": "jest",
     "postinstall": "husky install",
-    "pre-commit": "pretty-quick --staged && yarn test:husky"
+    "pre-commit": "pretty-quick --staged && yarn test:husky",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
@@ -37,7 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
     "eslint": "^8.14.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.0",
     "jest": "27.0.0",
     "nodemon": "^2.0.16",
     "npm-run-all": "^4.1.5",
