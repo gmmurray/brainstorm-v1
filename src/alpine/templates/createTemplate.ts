@@ -15,6 +15,7 @@ export const createTemplatePageStoreDefault = {
   },
   fieldTypeOptions: Object.values(TemplateFieldTypes),
   validationMessage: 'validation error',
+  createError: 'Error creating template',
 };
 
 export const initCreateTemplatePage = (
@@ -47,7 +48,8 @@ export const initCreateTemplatePage = (
         );
       } else {
         this.loading = false;
-        this.message = result?.data?.message ?? 'Error creating template';
+        this.message =
+          result?.data?.message ?? createTemplatePageStoreDefault.createError;
       }
     },
     handleAddField() {

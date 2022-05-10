@@ -13,6 +13,7 @@ export const createIdeaPageStoreDefault = {
   name: '',
   validationMessage: 'validation error',
   loading: false,
+  createError: 'Error creating idea',
 };
 
 export const initCreateIdeaPage = (pageData?: CreateIdeaPageData): Result => {
@@ -71,7 +72,8 @@ export const initCreateIdeaPage = (pageData?: CreateIdeaPageData): Result => {
         window.location.replace(`/ideas/view?ideaId=${result.data.ideaId}`);
       } else {
         this.loading = false;
-        this.message = result?.data?.message ?? 'Error creating idea';
+        this.message =
+          result?.data?.message ?? createIdeaPageStoreDefault.createError;
       }
     },
   };

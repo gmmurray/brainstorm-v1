@@ -21,7 +21,7 @@ describe('create template page scripts', () => {
     expect(initCreateTemplatePage()).toStrictEqual({});
   });
   test('initializes properties', () => {
-    const pageStore = initCreateTemplatePage({ user: mockUser });
+    const pageStore = createPageStore();
     const { name, fields, user, loading, message, newField, fieldTypeOptions } =
       pageStore;
 
@@ -36,7 +36,7 @@ describe('create template page scripts', () => {
     );
   });
   test('handle create method success', async () => {
-    const pageStore = initCreateTemplatePage({ user: mockUser });
+    const pageStore = createPageStore();
 
     pageStore.name = mockTemplate1.name;
     pageStore.fields = mockTemplate1.fields;
@@ -62,7 +62,7 @@ describe('create template page scripts', () => {
   test('handle create method failure', async () => {
     const message = 'error';
 
-    const pageStore = initCreateTemplatePage({ user: mockUser });
+    const pageStore = createPageStore();
 
     pageStore.name = mockTemplate1.name;
     pageStore.fields = mockTemplate1.fields;
@@ -81,10 +81,10 @@ describe('create template page scripts', () => {
 
     mockedAxios.post.mockResolvedValueOnce(undefined);
     await pageStore.handleCreate?.();
-    expect(pageStore.message).toBe('Error creating template');
+    expect(pageStore.message).toBe(createTemplatePageStoreDefault.createError);
   });
   test('handle invalid form submission', async () => {
-    const pageStore = initCreateTemplatePage({ user: mockUser });
+    const pageStore = createPageStore();
     expect(pageStore.handleCreate).toBeTruthy();
     pageStore.name = '';
 
@@ -103,7 +103,7 @@ describe('create template page scripts', () => {
     );
   });
   test('handle field add success', () => {
-    const pageStore = initCreateTemplatePage({ user: mockUser });
+    const pageStore = createPageStore();
     const newField = {
       name: 'test',
       type: TemplateFieldTypes.STRING,
@@ -125,7 +125,7 @@ describe('create template page scripts', () => {
     );
   });
   test('handle field add failure', () => {
-    const pageStore = initCreateTemplatePage({ user: mockUser });
+    const pageStore = createPageStore();
     const newField = {
       name: '',
       type: TemplateFieldTypes.NUMBER,
@@ -136,7 +136,7 @@ describe('create template page scripts', () => {
     expect(pageStore.newField).toStrictEqual(newField);
   });
   test('handle remove field success', () => {
-    const pageStore = initCreateTemplatePage({ user: mockUser });
+    const pageStore = createPageStore();
     const indexToRemove = 0;
     const fieldToRemove = { name: 'test', type: TemplateFieldTypes.STRING };
     pageStore.fields = [fieldToRemove];
@@ -149,7 +149,7 @@ describe('create template page scripts', () => {
     expect(pageStore.fields).toStrictEqual([]);
   });
   test('handle remove field failure', () => {
-    const pageStore = initCreateTemplatePage({ user: mockUser });
+    const pageStore = createPageStore();
     const indexToRemove = -1;
     const fieldToRemove = { name: 'test', type: TemplateFieldTypes.STRING };
     pageStore.fields = [fieldToRemove];
@@ -157,3 +157,5 @@ describe('create template page scripts', () => {
     expect(pageStore.fields).toContainEqual(fieldToRemove);
   });
 });
+
+const createPageStore = () => initCreateTemplatePage({ user: mockUser });

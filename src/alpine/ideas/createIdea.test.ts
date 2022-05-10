@@ -20,10 +20,7 @@ describe('create idea page scripts', () => {
   });
 
   it('initializes properties', () => {
-    const pageStore = initCreateIdeaPage({
-      user: mockUser,
-      templates: [mockTemplate1],
-    });
+    const pageStore = createPageStore();
     const {
       user,
       templates,
@@ -44,10 +41,7 @@ describe('create idea page scripts', () => {
   });
 
   it('handles select template', () => {
-    const pageStore = initCreateIdeaPage({
-      user: mockUser,
-      templates: [mockTemplate1],
-    });
+    const pageStore = createPageStore();
 
     expect(pageStore.handleSelectTemplate).toBeTruthy();
 
@@ -58,20 +52,14 @@ describe('create idea page scripts', () => {
     ).toBeTruthy();
   });
   it('handles deselect template', () => {
-    const pageStore = initCreateIdeaPage({
-      user: mockUser,
-      templates: [mockTemplate1],
-    });
+    const pageStore = createPageStore();
 
     pageStore.handleSelectTemplate?.();
 
     expect(pageStore.fields).toStrictEqual([]);
   });
   it('handles select template failure', () => {
-    const pageStore = initCreateIdeaPage({
-      user: mockUser,
-      templates: [mockTemplate1],
-    });
+    const pageStore = createPageStore();
 
     pageStore.handleSelectTemplate?.(-1);
 
@@ -85,10 +73,7 @@ describe('create idea page scripts', () => {
       type: f.type,
       value: undefined,
     }));
-    const pageStore = initCreateIdeaPage({
-      user: mockUser,
-      templates: [mockTemplate1],
-    });
+    const pageStore = createPageStore();
 
     expect(pageStore.handleCreate).toBeTruthy();
 
@@ -116,10 +101,7 @@ describe('create idea page scripts', () => {
   });
   it('handle create method failure', async () => {
     const message = 'error';
-    const pageStore = initCreateIdeaPage({
-      user: mockUser,
-      templates: [mockTemplate1],
-    });
+    const pageStore = createPageStore();
 
     pageStore.selectedTemplate = 0;
     pageStore.name = 'test';
@@ -136,13 +118,10 @@ describe('create idea page scripts', () => {
     mockedAxios.post.mockResolvedValueOnce(undefined);
     await pageStore.handleCreate?.();
 
-    expect(pageStore.message).toBe('Error creating idea');
+    expect(pageStore.message).toBe(createIdeaPageStoreDefault.createError);
   });
   it('handle invalid form submission', async () => {
-    const pageStore = initCreateIdeaPage({
-      user: mockUser,
-      templates: [mockTemplate1],
-    });
+    const pageStore = createPageStore();
 
     expect(pageStore.handleCreate).toBeTruthy();
 
@@ -163,6 +142,12 @@ describe('create idea page scripts', () => {
     );
   });
 });
+
+const createPageStore = () =>
+  initCreateIdeaPage({
+    user: mockUser,
+    templates: [mockTemplate1],
+  });
 
 const fieldsArePresent = (
   templateFields: ITemplateField[],

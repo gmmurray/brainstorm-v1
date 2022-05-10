@@ -24,10 +24,7 @@ describe('update template page scripts', () => {
   });
 
   test('initializes properties', () => {
-    const pageStore = initUpdateTemplatePage({
-      user: mockUser,
-      template: mockTemplate1 as Template,
-    });
+    const pageStore = createPageStore();
 
     const { user, template, loading, message, newField, fieldTypeOptions } =
       pageStore;
@@ -43,10 +40,7 @@ describe('update template page scripts', () => {
   });
 
   test('handle update method success', async () => {
-    const pageStore = initUpdateTemplatePage({
-      user: mockUser,
-      template: mockTemplate1 as Template,
-    });
+    const pageStore = createPageStore();
     expect(pageStore.handleUpdate).toBeTruthy();
 
     mockedAxios.post.mockResolvedValueOnce({ status: StatusCodes.OK });
@@ -65,10 +59,7 @@ describe('update template page scripts', () => {
   test('handle update method failure', async () => {
     const message = 'error';
 
-    const pageStore = initUpdateTemplatePage({
-      user: mockUser,
-      template: mockTemplate1 as Template,
-    });
+    const pageStore = createPageStore();
 
     expect(pageStore.handleUpdate).toBeTruthy();
 
@@ -83,14 +74,11 @@ describe('update template page scripts', () => {
 
     mockedAxios.post.mockResolvedValueOnce(undefined);
     await pageStore.handleUpdate?.();
-    expect(pageStore.message).toBe('Error updating template');
+    expect(pageStore.message).toBe(updateTemplatePageStoreDefault.updateError);
   });
 
   test('handle invalid form submission', async () => {
-    const pageStore = initUpdateTemplatePage({
-      user: mockUser,
-      template: mockTemplate1,
-    });
+    const pageStore = createPageStore();
     expect(pageStore.handleUpdate).toBeTruthy();
     (pageStore.template as Template).name = '';
 
@@ -102,10 +90,7 @@ describe('update template page scripts', () => {
   });
 
   test('handle delete method success', async () => {
-    const pageStore = initUpdateTemplatePage({
-      user: mockUser,
-      template: mockTemplate1 as Template,
-    });
+    const pageStore = createPageStore();
     expect(pageStore.handleDelete).toBeTruthy();
 
     mockedAxios.delete.mockResolvedValueOnce({
@@ -127,10 +112,7 @@ describe('update template page scripts', () => {
   test('handle delete method failure', async () => {
     const message = 'error';
 
-    const pageStore = initUpdateTemplatePage({
-      user: mockUser,
-      template: mockTemplate1 as Template,
-    });
+    const pageStore = createPageStore();
     expect(pageStore.handleDelete).toBeTruthy();
 
     mockedAxios.delete.mockResolvedValueOnce({ data: { message } });
@@ -144,14 +126,11 @@ describe('update template page scripts', () => {
 
     mockedAxios.delete.mockResolvedValueOnce(undefined);
     await pageStore.handleDelete?.();
-    expect(pageStore.message).toBe('Error deleting template');
+    expect(pageStore.message).toBe(updateTemplatePageStoreDefault.deleteError);
   });
 
   test('handle field add success', () => {
-    const pageStore = initUpdateTemplatePage({
-      user: mockUser,
-      template: mockTemplate1 as Template,
-    });
+    const pageStore = createPageStore();
     const newField = {
       name: 'test',
       type: TemplateFieldTypes.STRING,
@@ -164,10 +143,7 @@ describe('update template page scripts', () => {
     );
   });
   test('handle field add failure', () => {
-    const pageStore = initUpdateTemplatePage({
-      user: mockUser,
-      template: mockTemplate1 as Template,
-    });
+    const pageStore = createPageStore();
     const newField = {
       name: '',
       type: TemplateFieldTypes.NUMBER,
@@ -178,10 +154,7 @@ describe('update template page scripts', () => {
     expect(pageStore.newField).toStrictEqual(newField);
   });
   test('handle remove field success', () => {
-    const pageStore = initUpdateTemplatePage({
-      user: mockUser,
-      template: mockTemplate1 as Template,
-    });
+    const pageStore = createPageStore();
     const indexToRemove = 0;
     const fieldToRemove = { name: 'test', type: TemplateFieldTypes.STRING };
     (pageStore.template as Template).fields = [fieldToRemove];
@@ -200,3 +173,9 @@ describe('update template page scripts', () => {
     expect(pageStore.template?.fields).toContainEqual(fieldToRemove);
   });
 });
+
+const createPageStore = () =>
+  initUpdateTemplatePage({
+    user: mockUser,
+    template: mockTemplate1,
+  });

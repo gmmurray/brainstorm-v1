@@ -14,6 +14,8 @@ export const updateTemplatePageStoreDefault = {
   },
   fieldTypeOptions: Object.values(TemplateFieldTypes),
   validationMessage: 'validation error',
+  updateError: 'Error updating template',
+  deleteError: 'Error deleting template',
 };
 
 export const initUpdateTemplatePage = (pageData?: UpdateTemplatePageData) => {
@@ -39,7 +41,8 @@ export const initUpdateTemplatePage = (pageData?: UpdateTemplatePageData) => {
         window.location.reload();
       } else {
         this.loading = false;
-        this.message = result?.data?.message ?? 'Error updating template';
+        this.message =
+          result?.data?.message ?? updateTemplatePageStoreDefault.updateError;
       }
     },
     async handleDelete() {
@@ -51,7 +54,8 @@ export const initUpdateTemplatePage = (pageData?: UpdateTemplatePageData) => {
         window.location.replace('/templates');
       } else {
         this.loading = false;
-        this.message = result?.data?.message ?? 'Error deleting template';
+        this.message =
+          result?.data?.message ?? updateTemplatePageStoreDefault.deleteError;
       }
     },
     handleAddField() {

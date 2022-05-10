@@ -20,10 +20,7 @@ describe('update idea page scripts', () => {
   });
 
   it('initializes properties', () => {
-    const pageStore = initUpdateIdeaPage({
-      user: mockUser,
-      idea: mockIdea,
-    });
+    const pageStore = createPageStore();
 
     const { user, idea, loading, message } = pageStore;
 
@@ -34,7 +31,7 @@ describe('update idea page scripts', () => {
   });
 
   it('handle update method success', async () => {
-    const pageStore = initUpdateIdeaPage({ user: mockUser, idea: mockIdea });
+    const pageStore = createPageStore();
 
     expect(pageStore.handleUpdate).toBeTruthy();
 
@@ -53,10 +50,7 @@ describe('update idea page scripts', () => {
   it('handle update method failure', async () => {
     const message = 'error';
 
-    const pageStore = initUpdateIdeaPage({
-      user: mockUser,
-      idea: mockIdea,
-    });
+    const pageStore = createPageStore();
 
     expect(pageStore.handleUpdate).toBeTruthy();
 
@@ -72,10 +66,7 @@ describe('update idea page scripts', () => {
     expect(pageStore.message).toBe(updateIdeaPageStoreDefault.updateError);
   });
   it('handles invalid form submission', async () => {
-    const pageStore = initUpdateIdeaPage({
-      user: mockUser,
-      idea: mockIdea,
-    });
+    const pageStore = createPageStore();
 
     expect(pageStore.handleUpdate).toBeTruthy();
     (pageStore.idea as Idea).name = '';
@@ -88,10 +79,7 @@ describe('update idea page scripts', () => {
     );
   });
   it('handle delete method success', async () => {
-    const pageStore = initUpdateIdeaPage({
-      user: mockUser,
-      idea: mockIdea,
-    });
+    const pageStore = createPageStore();
 
     expect(pageStore.handleDelete).toBeTruthy();
 
@@ -113,10 +101,7 @@ describe('update idea page scripts', () => {
   it('handle delete method failure', async () => {
     const message = 'error';
 
-    const pageStore = initUpdateIdeaPage({
-      user: mockUser,
-      idea: mockIdea,
-    });
+    const pageStore = createPageStore();
 
     expect(pageStore.handleDelete).toBeTruthy();
 
@@ -137,3 +122,9 @@ describe('update idea page scripts', () => {
     expect(pageStore.message).toBe(updateIdeaPageStoreDefault.deleteError);
   });
 });
+
+const createPageStore = () =>
+  initUpdateIdeaPage({
+    user: mockUser,
+    idea: mockIdea,
+  });
