@@ -475,7 +475,7 @@ eval("\r\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _argume
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.initViewIdeasPage = void 0;\r\nconst initViewIdeasPage = (pageData) => {\r\n    if (!pageData)\r\n        return {};\r\n    return {\r\n        user: pageData.user,\r\n        ideas: pageData.ideas,\r\n    };\r\n};\r\nexports.initViewIdeasPage = initViewIdeasPage;\r\n\n\n//# sourceURL=webpack://brainstorm-v1/./src/alpine/ideas/viewIdeas.ts?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.initViewIdeasPage = void 0;\r\nconst initViewIdeasPage = (pageData) => {\r\n    if (!pageData)\r\n        return {};\r\n    return {\r\n        user: pageData.user,\r\n        ideas: pageData.ideas,\r\n        searchTerm: '',\r\n        visibleIdeas: pageData.ideas,\r\n        handleSearch() {\r\n            let result;\r\n            if (this.searchTerm === '') {\r\n                result = this.ideas;\r\n            }\r\n            else {\r\n                result = this.ideas.filter(idea => idea.name\r\n                    .toLocaleLowerCase()\r\n                    .includes(this.searchTerm.toLocaleLowerCase()));\r\n            }\r\n            this.visibleIdeas = result;\r\n        },\r\n        handleReset() {\r\n            this.searchTerm = '';\r\n        },\r\n    };\r\n};\r\nexports.initViewIdeasPage = initViewIdeasPage;\r\n\n\n//# sourceURL=webpack://brainstorm-v1/./src/alpine/ideas/viewIdeas.ts?");
 
 /***/ }),
 
@@ -519,7 +519,7 @@ eval("\r\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _argume
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
-eval("\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.initViewTemplatesPage = void 0;\r\nconst initViewTemplatesPage = (pageData) => {\r\n    if (!pageData)\r\n        return {};\r\n    return {\r\n        user: pageData.user,\r\n        templates: pageData.templates,\r\n    };\r\n};\r\nexports.initViewTemplatesPage = initViewTemplatesPage;\r\n\n\n//# sourceURL=webpack://brainstorm-v1/./src/alpine/templates/viewTemplates.ts?");
+eval("\r\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\r\nexports.initViewTemplatesPage = void 0;\r\nconst initViewTemplatesPage = (pageData) => {\r\n    if (!pageData)\r\n        return {};\r\n    return {\r\n        user: pageData.user,\r\n        templates: pageData.templates,\r\n        searchTerm: '',\r\n        visibleTemplates: pageData.templates,\r\n        handleSearch() {\r\n            let result;\r\n            if (this.searchTerm === '') {\r\n                result = this.templates;\r\n            }\r\n            else {\r\n                result = this.templates.filter(template => template.name\r\n                    .toLocaleLowerCase()\r\n                    .includes(this.searchTerm.toLocaleLowerCase()));\r\n            }\r\n            this.visibleTemplates = result;\r\n        },\r\n        handleReset() {\r\n            this.searchTerm = '';\r\n        },\r\n    };\r\n};\r\nexports.initViewTemplatesPage = initViewTemplatesPage;\r\n\n\n//# sourceURL=webpack://brainstorm-v1/./src/alpine/templates/viewTemplates.ts?");
 
 /***/ }),
 
